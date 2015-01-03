@@ -1,0 +1,4 @@
+rvk
+===
+
+Lightweight VK messenger 
