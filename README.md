@@ -1,4 +1,4 @@
-rvk
+vkm
 ===
 
 Lightweight VK messenger 
