@@ -22,9 +22,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # sources
 set(SRC_LIST
-	src/main.cpp
-	src/LoginWindow.cpp
-	#src/DialogsWindow.cpp
+	src/Main.cpp
+	src/Utils.cpp
+	src/fs/UserConfig.cpp
+	src/gui/LoginWindow.cpp
 )
 
 # libs

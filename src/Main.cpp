@@ -15,12 +15,28 @@
  */
 
 #include <QApplication>
-#include "LoginWindow.h"
-//#include "DialogsWindow.h"
+#include <QDir>
+#include <QMessageBox>
+
+#include "Utils.h"
+
+#include "gui/LoginWindow.h"
 
 int main(int argc, char* argv[]) {
 	QApplication app(argc, argv);
+
+	// prepare fs
+	if (!QDir(Utils::getParentDataDirectory()).mkpath("vkm")) {
+		QMessageBox msgBox;
+		msgBox.setText("Не могу создать папку приложения \"" + Utils::getDataDirectory() + "\"!");
+		msgBox.setIcon(QMessageBox::Critical);
+		msgBox.exec();
+		return 1;
+	}
+
+	// init gui
 	LoginWindow window;
 	window.show();
+
 	return app.exec();
 }

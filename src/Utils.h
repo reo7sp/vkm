@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-#ifndef _RVK_LOGIN_WINDOW_H
-#define _RVK_LOGIN_WINDOW_H
+#ifndef _VKM_UTILS_H
+#define _VKM_UTILS_H
 
-#include <QMainWindow>
-#include <QUrl>
+#include <QString>
+#include <QDir>
+#include <QStandardPaths>
 
-class LoginWindow : public QMainWindow {
-Q_OBJECT
+namespace Utils {
+	QString xorCrypt(const QString& data, const QString& key = "vmWsysghOiDBmMAirzm5WFZQlxMkWOulkPeDePorqXS51pfuEO");
 
-public:
-	explicit LoginWindow(QWidget* parent = nullptr);
-	~LoginWindow() { }
-
-private:
-	QWidget* helloPanel = nullptr;
-
-private slots:
-	void showVkLoginPage();
-	void checkUrl(const QUrl& url);
-};
+	inline QString getParentDataDirectory() {
+		return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QDir::separator();
+	}
+	inline QString getDataDirectory() {
+		return getParentDataDirectory() + "vkm" + QDir::separator();
+	}
+}
 
 #endif

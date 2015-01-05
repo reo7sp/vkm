@@ -24,10 +24,11 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QWebView>
-#include <QDebug>
+
+#include "../fs/UserConfig.h"
 
 LoginWindow::LoginWindow(QWidget* parent) {
-	setFixedSize(300, 320);
+	setFixedSize(300, 480);
 	setGeometry(QStyle::alignedRect( // center this window
 		Qt::LeftToRight,
 		Qt::AlignCenter,
@@ -46,11 +47,6 @@ LoginWindow::LoginWindow(QWidget* parent) {
 	appNameLabel->setAlignment(Qt::AlignHCenter);
 	mainLayout->addWidget(appNameLabel);
 
-	auto descLabel = new QLabel("Программа для общения ВКонтакте");
-	descLabel->setAlignment(Qt::AlignHCenter);
-	descLabel->setWordWrap(true);
-	mainLayout->addWidget(descLabel);
-
 	auto loginButton = new QPushButton("Войти");
 	connect(loginButton, SIGNAL(clicked()), this, SLOT(showVkLoginPage()));
 	mainLayout->addWidget(loginButton);
@@ -65,15 +61,21 @@ void LoginWindow::showVkLoginPage() {
 
 	loginWebView->load(QUrl(
 		"https://oauth.vk.com/authorize"
-		"?client_id="
-		"&scope="
+		"?client_id=4713446"
+		"&scope=messages,offline"
 		"&redirect_uri=https://oauth.vk.com/blank.html"
-		"&display=page"
-		"&v="
+		"&display=mobile"
+		"&v=5.21"
 		"&response_type=token"
 	));
 }
 
 void LoginWindow::checkUrl(const QUrl& url) {
-	qDebug() << url;
-}
+	if (url.host() == "oauth.vk.com" && url.path() == "/blank.html") {
+		if (!url.fragment().contains("error")) {
+			QStringList params = url.fragment().split("&");
+			UserConfig::get().setAll(params[0], params[2]);
+		}
+		close();
+	}
+};
