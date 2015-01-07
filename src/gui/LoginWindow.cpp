@@ -27,7 +27,7 @@
 
 #include "../fs/UserConfig.h"
 
-LoginWindow::LoginWindow(QWidget* parent) {
+LoginWindow::LoginWindow(QWidget* parent) : QMainWindow(parent) {
 	setFixedSize(300, 480);
 	setGeometry(QStyle::alignedRect( // center this window
 		Qt::LeftToRight,
@@ -48,13 +48,13 @@ LoginWindow::LoginWindow(QWidget* parent) {
 	mainLayout->addWidget(appNameLabel);
 
 	auto loginButton = new QPushButton("Войти");
-	connect(loginButton, SIGNAL(clicked()), this, SLOT(showVkLoginPage()));
+	connect(loginButton, &QPushButton::clicked, this, &LoginWindow::showVkLoginPage);
 	mainLayout->addWidget(loginButton);
 }
 
 void LoginWindow::showVkLoginPage() {
 	auto loginWebView = new QWebView();
-	connect(loginWebView, SIGNAL(urlChanged(QUrl)), this, SLOT(checkUrl(QUrl)));
+	connect(loginWebView, &QWebView::urlChanged, this, &LoginWindow::checkUrl);
 
 	setCentralWidget(loginWebView);
 	delete helloPanel;
@@ -65,7 +65,7 @@ void LoginWindow::showVkLoginPage() {
 		"&scope=messages,offline"
 		"&redirect_uri=https://oauth.vk.com/blank.html"
 		"&display=mobile"
-		"&v=5.21"
+		"&v=5.27"
 		"&response_type=token"
 	));
 }

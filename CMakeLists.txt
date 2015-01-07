@@ -26,6 +26,11 @@ set(SRC_LIST
 	src/Utils.cpp
 	src/fs/UserConfig.cpp
 	src/gui/LoginWindow.cpp
+	src/vk/VkCache.cpp
+	src/vk/VkObject.cpp
+	src/vk/VkDialog.cpp
+	src/vk/VkMessage.cpp
+	src/vk/VkUser.cpp
 )
 
 # libs

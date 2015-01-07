@@ -19,7 +19,7 @@
 QString Utils::xorCrypt(const QString& data, const QString& key) {
 	QString result = "";
 	for (int i = 0, len = data.length(), keylen = key.length(); i < len; ++i) {
-		result += QChar(data[i].unicode() ^ key[i % keylen].unicode());
+		result += QChar(data.at(i).unicode() ^ key.at(i % keylen).unicode());
 	}
 	return result;
 }

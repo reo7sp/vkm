@@ -27,6 +27,10 @@ UserConfig& UserConfig::get() {
 	return instance;
 }
 
+UserConfig::UserConfig() {
+	reload();
+}
+
 void UserConfig::reload() {
 	QFile file(Utils::getDataDirectory() + "user.json");
 	if (!file.open(QFile::ReadOnly | QFile::Text)) return;

@@ -12,20 +12,14 @@ public:
 		_userId = userId;
 		rewrite();
 	}
-	inline QString& getAccessToken() {
-		if (_accessToken.isEmpty()) {
-			reload();
-		}
+	inline const QString& getAccessToken() const {
 		return _accessToken;
 	}
 	inline void setAccessToken(const QString& accessToken) {
 		_accessToken = accessToken;
 		rewrite();
 	}
-	inline QString& getUserId() {
-		if (_userId.isEmpty()) {
-			reload();
-		}
+	inline const QString& getUserId() const {
 		return _userId;
 	}
 	inline void setUserId(const QString& userId) {
@@ -34,7 +28,7 @@ public:
 	}
 
 private:
-	UserConfig() { }
+	UserConfig();
 	UserConfig(UserConfig&) { }
 	~UserConfig() { }
 

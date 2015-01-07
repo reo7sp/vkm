@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-#ifndef _VKM_GUI_LOGIN_WINDOW_H
-#define _VKM_GUI_LOGIN_WINDOW_H
+#ifndef _VKM_VK_VK_USER_H
+#define _VKM_VK_VK_USER_H
 
-#include <QMainWindow>
-#include <QUrl>
+#include <QString>
+#include <QJsonObject>
 
-class LoginWindow : public QMainWindow {
-Q_OBJECT
+#include "VkObject.h"
+
+class VkUser : public VkObject {
+friend class VkCache;
 
 public:
-	explicit LoginWindow(QWidget* parent = nullptr);
+	virtual void parse(const QJsonObject& json) override;
+	virtual void reload() override;
+
+	inline const QString& getId() const {
+		return _id;
+	}
+	inline const QString& getName() const {
+		return _name;
+	}
 
 private:
-	QWidget* helloPanel = nullptr;
+	explicit VkUser(const QString& id);
 
-private slots:
-	void showVkLoginPage();
-	void checkUrl(const QUrl& url);
+	QString _id;
+	QString _name;
 };
 
 #endif
